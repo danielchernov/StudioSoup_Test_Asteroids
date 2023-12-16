@@ -665,7 +665,7 @@ GameObject:
   - component: {fileID: 2393566416070571635}
   - component: {fileID: 7398642239814522146}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: Lives
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,7 +719,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time:'
+  m_text: 'Lives:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 4064907300957165355}
   - component: {fileID: 5533243712730640720}
   m_Layer: 5
-  m_Name: TimerValue
+  m_Name: LivesValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

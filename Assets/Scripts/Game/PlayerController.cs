@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using AsteroidsTest.Core;
 
 namespace AsteroidsTest.Game
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamageable
     {
         [SerializeField]
         float _movementSpeed = 500;
@@ -12,7 +14,9 @@ namespace AsteroidsTest.Game
         float _rotationSpeed = 300;
 
         [SerializeField]
-        float _bulletForce = 10;
+        int _maxHealth = 3;
+
+        int _currentHealth = 0;
 
         Vector2 _movementDirection;
 
@@ -34,6 +38,15 @@ namespace AsteroidsTest.Game
         [SerializeField]
         AudioClip[] _fireSFX;
 
+        public static event Action OnTookDamage;
+        public static event Action OnPlayerDeath;
+
+        void Start()
+        {
+            _currentHealth = _maxHealth;
+        }
+
+        // Add/Remove Listener to Fire Action
         void OnEnable()
         {
             _fireInput.action.started += FireBullet;
@@ -48,12 +61,6 @@ namespace AsteroidsTest.Game
         {
             // Get Movement Input
             _movementDirection = _movementInput.action.ReadValue<Vector2>();
-
-            // Fire Bullets
-            // if (_fireInput.action)
-            // {
-            //     FireBullet();
-            // }
         }
 
         void FixedUpdate()
@@ -77,20 +84,32 @@ namespace AsteroidsTest.Game
 
         void FireBullet(InputAction.CallbackContext obj)
         {
+            // Pool Bullet
             GameObject bullet = ObjectPooler.Instance.SpawnFromPool(
                 "Bullets",
                 _firePoint.position,
                 _firePoint.rotation
             );
 
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            //Play Fire SFX
+            _playerAudio.PlayOneShot(_fireSFX[UnityEngine.Random.Range(0, _fireSFX.Length)], 0.5f);
+        }
 
-            bulletRb.velocity = Vector2.zero;
-            Vector2 bulletDirection = _firePoint.up;
+        public void TakeDamage(int Damage)
+        {
+            // Health - Damage
+            OnTookDamage?.Invoke();
 
-            bulletRb.AddForce(_firePoint.up * _bulletForce, ForceMode2D.Impulse);
+            if (_currentHealth <= 0)
+            {
+                DestroyObject();
+            }
+        }
 
-            _playerAudio.PlayOneShot(_fireSFX[Random.Range(0, _fireSFX.Length)], 0.5f);
+        public void DestroyObject()
+        {
+            OnPlayerDeath?.Invoke();
+            // Invoke dead event for GameManager
         }
     }
 }

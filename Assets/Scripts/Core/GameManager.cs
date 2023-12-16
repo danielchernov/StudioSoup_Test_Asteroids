@@ -1,4 +1,5 @@
 using UnityEngine;
+using AsteroidsTest.Game;
 
 namespace AsteroidsTest.Core
 {
@@ -21,6 +22,22 @@ namespace AsteroidsTest.Core
         private void Awake()
         {
             _instance = this;
+        }
+
+        void OnEnable()
+        {
+            PlayerController.OnPlayerDeath += GameOver;
+        }
+
+        void OnDisable()
+        {
+            PlayerController.OnPlayerDeath -= GameOver;
+        }
+
+        void GameOver()
+        {
+            Debug.Log("Game Over");
+            UIManager.Instance.GameOverUI();
         }
     }
 }
