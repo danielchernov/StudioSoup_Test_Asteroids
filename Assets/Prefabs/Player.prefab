@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 699129675710045744}
   - component: {fileID: 1993502860111279733}
   - component: {fileID: 5430204875645978850}
+  - component: {fileID: 8099318908450745266}
   - component: {fileID: 3959448057029288368}
   - component: {fileID: 1870429218521927968}
   - component: {fileID: 5026231369220784021}
@@ -135,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 500
   _rotationSpeed: 300
-  _bulletForce: 10
+  _maxHealth: 3
   _playerRb: {fileID: 1870429218521927968}
   _movementInput: {fileID: 7866534009169135142, guid: c4ae693c61d35d14e8eee809a168b57b, type: 3}
   _fireInput: {fileID: 2504346142035142804, guid: c4ae693c61d35d14e8eee809a168b57b, type: 3}
@@ -145,6 +146,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d8085843aaca27e45b41f4921c196c91, type: 3}
   - {fileID: 8300000, guid: 3d382d0209d0ef94284883ee86701d01, type: 3}
   - {fileID: 8300000, guid: 8150fc2a9f861e042925687b38b61099, type: 3}
+--- !u!114 &8099318908450745266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5658278496710530933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d4f016b0e768e48a8abd29e3cba507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3959448057029288368
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 using AsteroidsTest.Game;
 
 namespace AsteroidsTest.Core
@@ -20,11 +21,41 @@ namespace AsteroidsTest.Core
             }
         }
 
-        private void Awake()
+        [SerializeField]
+        TextMeshProUGUI _scoreText;
+
+        [SerializeField]
+        TextMeshProUGUI _livesText;
+
+        [SerializeField]
+        TextMeshProUGUI _bestText;
+
+        [SerializeField]
+        GameObject _pauseMenu;
+
+        [SerializeField]
+        GameObject _optionsMenu;
+
+        [SerializeField]
+        GameObject _gameOverMenu;
+
+        void Awake()
         {
             _instance = this;
         }
 
+        void Start()
+        {
+            // HUD Setup
+            if (_scoreText == null)
+                return;
+
+            ChangeScoreText(0);
+            ChangeLivesText(PlayerController.Instance.GetMaxHealth());
+            ChangeHighscoreText(PlayerPrefs.GetInt("Highscore", 0));
+        }
+
+        //Add Listeners
         void OnEnable()
         {
             PlayerController.OnTookDamage += ChangeLivesText;
@@ -37,6 +68,20 @@ namespace AsteroidsTest.Core
             AsteroidController.OnEnemyDeath -= ChangeScoreText;
         }
 
+        public void GameOverUI()
+        {
+            _gameOverMenu.SetActive(true);
+        }
+
+        public void PauseMenuUI()
+        {
+            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+            if (_optionsMenu.activeSelf)
+            {
+                _optionsMenu.SetActive(false);
+            }
+        }
+
         public void StartButton()
         {
             SceneManager.LoadScene("MainLevel");
@@ -44,6 +89,7 @@ namespace AsteroidsTest.Core
 
         public void ExitToMenuButton()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene("MainMenu");
         }
 
@@ -52,19 +98,19 @@ namespace AsteroidsTest.Core
             Application.Quit();
         }
 
-        public void GameOverUI()
+        void ChangeLivesText(int lives)
         {
-            Debug.Log("UI Game Over Active");
+            _livesText.text = "Lives: " + lives;
         }
 
-        void ChangeLivesText()
+        void ChangeScoreText(int score)
         {
-            Debug.Log("Changed Lives UI Text!");
+            _scoreText.text = "Score: " + score;
         }
 
-        void ChangeScoreText()
+        void ChangeHighscoreText(int best)
         {
-            Debug.Log("Changed Score UI Text!");
+            _bestText.text = "Best: " + best;
         }
     }
 }

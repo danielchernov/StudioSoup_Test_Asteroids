@@ -10,7 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 465622768152182823, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
       propertyPath: m_Name
-      value: Asteroid
+      value: AsteroidLarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
+      propertyPath: _maxHealth
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
+      propertyPath: _asteroidSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
+      propertyPath: _asteroidScore
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
+      propertyPath: _asteroidSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7888773136439117770, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
       propertyPath: m_LocalPosition.x

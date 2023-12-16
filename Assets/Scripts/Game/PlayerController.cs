@@ -7,6 +7,20 @@ namespace AsteroidsTest.Game
 {
     public class PlayerController : MonoBehaviour, IDamageable
     {
+        private static PlayerController _instance;
+        public static PlayerController Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    Debug.LogError("PlayerController is Null");
+                }
+
+                return _instance;
+            }
+        }
+
         [SerializeField]
         float _movementSpeed = 500;
 
@@ -17,6 +31,8 @@ namespace AsteroidsTest.Game
         int _maxHealth = 3;
 
         int _currentHealth = 0;
+
+        bool _isInputLocked = false;
 
         Vector2 _movementDirection;
 
@@ -38,8 +54,13 @@ namespace AsteroidsTest.Game
         [SerializeField]
         AudioClip[] _fireSFX;
 
-        public static event Action OnTookDamage;
+        public static event Action<int> OnTookDamage;
         public static event Action OnPlayerDeath;
+
+        private void Awake()
+        {
+            _instance = this;
+        }
 
         void Start()
         {
@@ -60,7 +81,10 @@ namespace AsteroidsTest.Game
         void Update()
         {
             // Get Movement Input
-            _movementDirection = _movementInput.action.ReadValue<Vector2>();
+            if (!_isInputLocked)
+            {
+                _movementDirection = _movementInput.action.ReadValue<Vector2>();
+            }
         }
 
         void FixedUpdate()
@@ -82,23 +106,11 @@ namespace AsteroidsTest.Game
             }
         }
 
-        void FireBullet(InputAction.CallbackContext obj)
-        {
-            // Pool Bullet
-            GameObject bullet = ObjectPooler.Instance.SpawnFromPool(
-                "Bullets",
-                _firePoint.position,
-                _firePoint.rotation
-            );
-
-            //Play Fire SFX
-            _playerAudio.PlayOneShot(_fireSFX[UnityEngine.Random.Range(0, _fireSFX.Length)], 0.5f);
-        }
-
         public void TakeDamage(int Damage)
         {
-            // Health - Damage
-            OnTookDamage?.Invoke();
+            _currentHealth -= Damage;
+
+            OnTookDamage?.Invoke(_currentHealth);
 
             if (_currentHealth <= 0)
             {
@@ -110,6 +122,35 @@ namespace AsteroidsTest.Game
         {
             OnPlayerDeath?.Invoke();
             // Invoke dead event for GameManager
+        }
+
+        public int GetMaxHealth()
+        {
+            return _maxHealth;
+        }
+
+        void FireBullet(InputAction.CallbackContext obj)
+        {
+            if (!_isInputLocked)
+            {
+                // Pool Bullet
+                GameObject bullet = ObjectPooler.Instance.SpawnFromPool(
+                    "Bullets",
+                    _firePoint.position,
+                    _firePoint.rotation
+                );
+
+                //Play Fire SFX
+                _playerAudio.PlayOneShot(
+                    _fireSFX[UnityEngine.Random.Range(0, _fireSFX.Length)],
+                    0.5f
+                );
+            }
+        }
+
+        public void LockInput()
+        {
+            _isInputLocked = !_isInputLocked;
         }
     }
 }

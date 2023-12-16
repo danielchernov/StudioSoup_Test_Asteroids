@@ -83,9 +83,9 @@ namespace AsteroidsTest.Game
 
             GameObject objectToSpawn = _poolDictionary[poolTag].Dequeue();
 
-            objectToSpawn.SetActive(true);
             objectToSpawn.transform.position = spawnPosition;
             objectToSpawn.transform.rotation = spawnRotation;
+            objectToSpawn.SetActive(true);
 
             _poolDictionary[poolTag].Enqueue(objectToSpawn);
 
