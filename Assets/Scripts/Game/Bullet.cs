@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using AsteroidsTest.Core;
 
 namespace AsteroidsTest.Game
 {
@@ -10,18 +9,24 @@ namespace AsteroidsTest.Game
         float _bulletForce = 10;
 
         [SerializeField]
+        float _timeToDeactivate = 2;
+
+        [SerializeField]
         Rigidbody2D _bulletRb;
 
         private void OnEnable()
         {
             // Add Forward Force
+            if (_bulletRb == null)
+                return;
+
             _bulletRb.velocity = Vector2.zero;
             Vector2 bulletDirection = transform.up;
 
             _bulletRb.AddForce(bulletDirection * _bulletForce, ForceMode2D.Impulse);
 
             // Set Deactivate After Time
-            StartCoroutine(DeactivateAfterTime(2));
+            StartCoroutine(DeactivateAfterTime(_timeToDeactivate));
         }
 
         void OnTriggerEnter2D(Collider2D collider)

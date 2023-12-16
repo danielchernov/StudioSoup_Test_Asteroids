@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using AsteroidsTest.Core;
 
 namespace AsteroidsTest.Game
 {
@@ -29,7 +30,7 @@ namespace AsteroidsTest.Game
 
         void Start()
         {
-            // Set Values up
+            // Set Values Up
             _screenWidth = Camera.main.aspect * Camera.main.orthographicSize;
             _screenHeight = Camera.main.orthographicSize;
 
@@ -50,27 +51,30 @@ namespace AsteroidsTest.Game
             Vector2 spawnPosition = Vector2.zero;
             int side = Random.Range(0, 4);
 
+            if (_screenBounds == null)
+                return Vector2.zero;
+
             switch (side)
             {
-                case 0: // top
+                case 0: // Top
                     spawnPosition = new Vector2(
                         Random.Range(-_screenWidth, _screenWidth),
                         _screenBounds.bounds.max.y
                     );
                     break;
-                case 1: // right
+                case 1: // Right
                     spawnPosition = new Vector2(
                         _screenBounds.bounds.max.x,
                         Random.Range(-_screenHeight, _screenHeight)
                     );
                     break;
-                case 2: // bottom
+                case 2: // Bottom
                     spawnPosition = new Vector2(
                         Random.Range(-_screenWidth, _screenWidth),
                         _screenBounds.bounds.min.y
                     );
                     break;
-                case 3: // left
+                case 3: // Left
                     spawnPosition = new Vector2(
                         _screenBounds.bounds.min.x,
                         Random.Range(-_screenHeight, _screenHeight)

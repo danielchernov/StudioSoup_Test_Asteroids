@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace AsteroidsTest.Core
+namespace AsteroidsTest.Game
 {
     public interface IPerishable
     {

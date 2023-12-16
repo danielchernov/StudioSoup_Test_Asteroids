@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using AsteroidsTest.Game;
+using AsteroidsTest.UI;
 
 namespace AsteroidsTest.Core
 {
@@ -23,9 +24,6 @@ namespace AsteroidsTest.Core
 
         [SerializeField]
         InputActionReference _escapeInput;
-
-        [SerializeField]
-        AudioSource _bgmAudio;
 
         int _currentScore = 0;
 
@@ -53,6 +51,7 @@ namespace AsteroidsTest.Core
 
         public void OpenPauseMenu()
         {
+            // Open UI and Lock Player Input
             UIManager.Instance.PauseMenuUI();
             PlayerController.Instance.LockInput();
 
@@ -89,6 +88,7 @@ namespace AsteroidsTest.Core
 
         IEnumerator GameOver()
         {
+            // Waits and Opens UI
             yield return new WaitForSeconds(1.5f);
             Time.timeScale = 0;
             UIManager.Instance.GameOverUI();

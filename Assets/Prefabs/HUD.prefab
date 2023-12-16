@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Best:'
+  m_text: 'Highscore:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 9183490083687244832}
   - component: {fileID: 2603942655109074852}
   - component: {fileID: 9107564816817736}
+  - component: {fileID: 6701612045431816543}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -252,9 +253,25 @@ MonoBehaviour:
   _scoreText: {fileID: 6355223535619391652}
   _livesText: {fileID: 7398642239814522146}
   _bestText: {fileID: 1349563600987110389}
+  _highscoreGameOverText: {fileID: 0}
   _pauseMenu: {fileID: 0}
   _optionsMenu: {fileID: 0}
   _gameOverMenu: {fileID: 0}
+  _slider1: {fileID: 0}
+  _slider2: {fileID: 0}
+  _slider3: {fileID: 0}
+--- !u!114 &6701612045431816543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980363129693610573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92fc92333c75104a95eda6198944a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2190764661701776038
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'Puntaje:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -401,7 +418,7 @@ GameObject:
   - component: {fileID: 2393566416070571635}
   - component: {fileID: 7398642239814522146}
   m_Layer: 5
-  m_Name: Lives
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,7 +471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lives:'
+  m_text: 'Vida:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

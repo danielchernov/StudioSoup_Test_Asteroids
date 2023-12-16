@@ -1,5 +1,6 @@
 using UnityEngine;
 using AsteroidsTest.Game;
+using Random = UnityEngine.Random;
 
 namespace AsteroidsTest.Core
 {
@@ -51,25 +52,26 @@ namespace AsteroidsTest.Core
             _instance = this;
         }
 
+        // Play SFX Depending on AudioType
         public void PlaySFX(AudioType audioType)
         {
+            if (_sfxAudio == null)
+                return;
+
             switch (audioType)
             {
                 case AudioType.Fire:
-                    _sfxAudio.PlayOneShot(
-                        _fireSFX[UnityEngine.Random.Range(0, _fireSFX.Length)],
-                        0.5f
-                    );
+                    _sfxAudio.PlayOneShot(_fireSFX[Random.Range(0, _fireSFX.Length)], 0.5f);
                     break;
                 case AudioType.PlayerDeath:
                     _sfxAudio.PlayOneShot(
-                        _playerDeathSFX[UnityEngine.Random.Range(0, _playerDeathSFX.Length)],
+                        _playerDeathSFX[Random.Range(0, _playerDeathSFX.Length)],
                         0.5f
                     );
                     break;
                 case AudioType.EnemyDeath:
                     _sfxAudio.PlayOneShot(
-                        _enemyDeathSFX[UnityEngine.Random.Range(0, _enemyDeathSFX.Length)],
+                        _enemyDeathSFX[Random.Range(0, _enemyDeathSFX.Length)],
                         0.5f
                     );
                     break;
@@ -78,8 +80,11 @@ namespace AsteroidsTest.Core
             }
         }
 
+        // Play BGM Depending on AudioType
         public void PlayBGM(AudioType audioType)
         {
+            if (_bgmAudio == null)
+                return;
             _bgmAudio.loop = false;
             switch (audioType)
             {

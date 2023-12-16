@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AsteroidsTest.Game
+namespace AsteroidsTest.Core
 {
     public class ScreenBounds : MonoBehaviour
     {
@@ -10,6 +10,9 @@ namespace AsteroidsTest.Game
         void Start()
         {
             //Set Screen Collider Size
+            if (_boxCollider == null)
+                return;
+
             float ySize = Camera.main.orthographicSize * 2;
             Vector2 colliderSize = new Vector2(ySize * Camera.main.aspect, ySize);
             _boxCollider.size = colliderSize;
@@ -18,6 +21,9 @@ namespace AsteroidsTest.Game
         // Check if Out Of Bounds
         public bool isOutOfBounds(Vector3 worldPosition)
         {
+            if (_boxCollider == null)
+                return false;
+
             return Mathf.Abs(worldPosition.x) > Mathf.Abs(_boxCollider.bounds.min.x)
                 || Mathf.Abs(worldPosition.y) > Mathf.Abs(_boxCollider.bounds.min.y);
         }
@@ -25,6 +31,9 @@ namespace AsteroidsTest.Game
         // Calculate Wrapping Position
         public Vector2 CalculateWrappedPosition(Vector2 worldPosition)
         {
+            if (_boxCollider == null)
+                return Vector2.zero;
+
             bool xBoundResult = Mathf.Abs(worldPosition.x) > (Mathf.Abs(_boxCollider.bounds.min.x));
             bool yBoundResult = Mathf.Abs(worldPosition.y) > (Mathf.Abs(_boxCollider.bounds.min.y));
 

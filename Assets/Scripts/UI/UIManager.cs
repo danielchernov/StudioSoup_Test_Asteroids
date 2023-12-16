@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
+using AsteroidsTest.Core;
 using AsteroidsTest.Game;
 
-namespace AsteroidsTest.Core
+namespace AsteroidsTest.UI
 {
     public class UIManager : MonoBehaviour
     {
@@ -31,6 +33,9 @@ namespace AsteroidsTest.Core
         TextMeshProUGUI _bestText;
 
         [SerializeField]
+        TextMeshProUGUI _highscoreGameOverText;
+
+        [SerializeField]
         GameObject _pauseMenu;
 
         [SerializeField]
@@ -39,6 +44,15 @@ namespace AsteroidsTest.Core
         [SerializeField]
         GameObject _gameOverMenu;
 
+        [SerializeField]
+        Slider _slider1;
+
+        [SerializeField]
+        Slider _slider2;
+
+        [SerializeField]
+        Slider _slider3;
+
         void Awake()
         {
             _instance = this;
@@ -46,13 +60,16 @@ namespace AsteroidsTest.Core
 
         void Start()
         {
-            // HUD Setup
-            if (_scoreText == null)
+            //Sets Volume Sliders Up
+            if (_slider1 == null)
                 return;
-
-            ChangeScoreText(0);
-            ChangeLivesText(PlayerController.Instance.GetMaxHealth());
-            ChangeHighscoreText(PlayerPrefs.GetInt("Highscore", 0));
+            _slider1.value = PlayerPrefs.GetFloat("MasterVolume", 1);
+            if (_slider2 == null)
+                return;
+            _slider2.value = PlayerPrefs.GetFloat("BGMVolume", 1);
+            if (_slider3 == null)
+                return;
+            _slider3.value = PlayerPrefs.GetFloat("SFXVolume", 1);
         }
 
         //Add Listeners
@@ -68,22 +85,39 @@ namespace AsteroidsTest.Core
 
         public void GameOverUI()
         {
+            if (_gameOverMenu == null)
+                return;
+
             _gameOverMenu.SetActive(true);
+
+            if (_highscoreGameOverText == null)
+                return;
 
             if (GameManager.Instance.GetCurrentScore() >= PlayerPrefs.GetInt("Highscore"))
             {
                 ChangeHighscoreText(GameManager.Instance.GetCurrentScore());
                 AudioManager.Instance.PlayBGM(AudioManager.AudioType.NewHighscore);
+                _highscoreGameOverText.gameObject.SetActive(true);
+                _highscoreGameOverText.text =
+                    "Nuevo Mejor Puntaje: " + GameManager.Instance.GetCurrentScore();
             }
             else
             {
                 AudioManager.Instance.PlayBGM(AudioManager.AudioType.GameOver);
+                _highscoreGameOverText.gameObject.SetActive(false);
             }
         }
 
         public void PauseMenuUI()
         {
+            if (_pauseMenu == null)
+                return;
+
             _pauseMenu.SetActive(!_pauseMenu.activeSelf);
+
+            if (_optionsMenu == null)
+                return;
+
             if (_optionsMenu.activeSelf)
             {
                 _optionsMenu.SetActive(false);
@@ -108,17 +142,23 @@ namespace AsteroidsTest.Core
 
         public void ChangeLivesText(int lives)
         {
-            _livesText.text = "Lives: " + lives;
+            if (_livesText == null)
+                return;
+            _livesText.text = "Vida: " + lives;
         }
 
         public void ChangeScoreText(int score)
         {
-            _scoreText.text = "Score: " + score;
+            if (_scoreText == null)
+                return;
+            _scoreText.text = "Puntaje: " + score;
         }
 
         public void ChangeHighscoreText(int currentScore)
         {
-            _bestText.text = "Best: " + currentScore;
+            if (_bestText == null)
+                return;
+            _bestText.text = "Highscore: " + currentScore;
             PlayerPrefs.SetInt("Highscore", currentScore);
         }
     }

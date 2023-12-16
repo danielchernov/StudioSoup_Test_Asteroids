@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185366aedf91b5f40928ccf040727920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minTimeToSpawn: 0.5
+  _minTimeToSpawn: 0.2
   _maxTimeToSpawn: 2
-  _timeUntilMaxSpeed: 300
-  _timeBaseModifier: 1.5
-  _timeUntilExtraAsteroid: 30
+  _timeUntilMaxSpeed: 200
+  _timeBaseModifier: 1.2
+  _timeUntilExtraAsteroid: 20
   _screenBounds: {fileID: 0}

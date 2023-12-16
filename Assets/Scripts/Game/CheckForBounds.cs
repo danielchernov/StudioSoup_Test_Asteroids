@@ -1,4 +1,5 @@
 using UnityEngine;
+using AsteroidsTest.Core;
 
 namespace AsteroidsTest.Game
 {
@@ -28,7 +29,7 @@ namespace AsteroidsTest.Game
                 Vector2 newPosition = _screenBounds.CalculateWrappedPosition(transform.position);
                 transform.position = newPosition;
 
-                _teleportTimer = 2;
+                _teleportTimer = 1;
             }
         }
     }

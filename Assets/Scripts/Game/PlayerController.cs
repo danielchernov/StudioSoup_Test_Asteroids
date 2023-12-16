@@ -62,7 +62,7 @@ namespace AsteroidsTest.Game
             _currentHealth = _maxHealth;
         }
 
-        // Add/Remove Listener to Fire Action
+        // Add Listeners
         void OnEnable()
         {
             _fireInput.action.started += FireBullet;
@@ -85,6 +85,9 @@ namespace AsteroidsTest.Game
         void FixedUpdate()
         {
             // Move and Rotate Player
+            if (_playerRb == null)
+                return;
+
             if (_movementDirection.y > 0)
             {
                 _playerRb.AddForce(
@@ -131,6 +134,9 @@ namespace AsteroidsTest.Game
             if (!_isInputLocked)
             {
                 // Pool Bullet
+                if (_firePoint == null)
+                    return;
+
                 GameObject bullet = ObjectPooler.Instance.SpawnFromPool(
                     "Bullets",
                     _firePoint.position,

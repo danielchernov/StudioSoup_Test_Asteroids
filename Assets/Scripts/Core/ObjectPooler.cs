@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AsteroidsTest.Game
+namespace AsteroidsTest.Core
 {
     public class ObjectPooler : MonoBehaviour
     {

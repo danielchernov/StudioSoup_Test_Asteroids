@@ -26,6 +26,9 @@ namespace AsteroidsTest.Game
         int _currentHealth = 0;
 
         [SerializeField]
+        float _timeToDeactivate = 20;
+
+        [SerializeField]
         Rigidbody2D _asteroidRb;
 
         public static event Action<int> OnEnemyDeath;
@@ -37,6 +40,9 @@ namespace AsteroidsTest.Game
             transform.localScale = Vector3.one * _asteroidSize;
 
             // Push Asteroid
+            if (_asteroidRb == null)
+                return;
+
             Vector2 lookToCenter = (Vector3.zero - transform.position).normalized;
 
             Vector2 asteroidDirection = new Vector2(
@@ -52,7 +58,7 @@ namespace AsteroidsTest.Game
             _asteroidRb.AddTorque(Random.Range(0, 100));
 
             // Set Deactivate After Time
-            StartCoroutine(DeactivateAfterTime(30));
+            StartCoroutine(DeactivateAfterTime(_timeToDeactivate));
         }
 
         void OnTriggerEnter2D(Collider2D collider)
