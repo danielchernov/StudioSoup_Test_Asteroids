@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7438392745878430676}
   m_Layer: 7
   m_Name: Asteroid
-  m_TagString: Untagged
+  m_TagString: Asteroid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   _asteroidSize: 1
   _asteroidScore: 10
   _asteroidSpeed: 5
+  _damage: 1
   _maxHealth: 1
   _asteroidRb: {fileID: 7490664401577562199}
 --- !u!114 &260197076225642525
@@ -173,7 +174,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

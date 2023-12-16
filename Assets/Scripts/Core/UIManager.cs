@@ -59,18 +59,26 @@ namespace AsteroidsTest.Core
         void OnEnable()
         {
             PlayerController.OnTookDamage += ChangeLivesText;
-            AsteroidController.OnEnemyDeath += ChangeScoreText;
         }
 
         void OnDisable()
         {
             PlayerController.OnTookDamage -= ChangeLivesText;
-            AsteroidController.OnEnemyDeath -= ChangeScoreText;
         }
 
         public void GameOverUI()
         {
             _gameOverMenu.SetActive(true);
+
+            if (GameManager.Instance.GetCurrentScore() >= PlayerPrefs.GetInt("Highscore"))
+            {
+                ChangeHighscoreText(GameManager.Instance.GetCurrentScore());
+                AudioManager.Instance.PlayBGM(AudioManager.AudioType.NewHighscore);
+            }
+            else
+            {
+                AudioManager.Instance.PlayBGM(AudioManager.AudioType.GameOver);
+            }
         }
 
         public void PauseMenuUI()
@@ -84,12 +92,12 @@ namespace AsteroidsTest.Core
 
         public void StartButton()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene("MainLevel");
         }
 
         public void ExitToMenuButton()
         {
-            Time.timeScale = 1;
             SceneManager.LoadScene("MainMenu");
         }
 
@@ -98,19 +106,20 @@ namespace AsteroidsTest.Core
             Application.Quit();
         }
 
-        void ChangeLivesText(int lives)
+        public void ChangeLivesText(int lives)
         {
             _livesText.text = "Lives: " + lives;
         }
 
-        void ChangeScoreText(int score)
+        public void ChangeScoreText(int score)
         {
             _scoreText.text = "Score: " + score;
         }
 
-        void ChangeHighscoreText(int best)
+        public void ChangeHighscoreText(int currentScore)
         {
-            _bestText.text = "Best: " + best;
+            _bestText.text = "Best: " + currentScore;
+            PlayerPrefs.SetInt("Highscore", currentScore);
         }
     }
 }

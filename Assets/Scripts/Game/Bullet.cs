@@ -24,6 +24,15 @@ namespace AsteroidsTest.Game
             StartCoroutine(DeactivateAfterTime(2));
         }
 
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.tag == "Asteroid")
+            {
+                collider.GetComponent<AsteroidController>().TakeDamage(1);
+                gameObject.SetActive(false);
+            }
+        }
+
         public IEnumerator DeactivateAfterTime(float timeToDeactivate)
         {
             yield return new WaitForSeconds(timeToDeactivate);

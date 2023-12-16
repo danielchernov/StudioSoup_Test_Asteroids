@@ -11,6 +11,15 @@ namespace AsteroidsTest.Game
         [SerializeField]
         float _maxTimeToSpawn = 5;
 
+        [SerializeField]
+        float _timeUntilMaxSpeed = 300;
+
+        [SerializeField]
+        float _timeBaseModifier = 1.5f;
+
+        [SerializeField]
+        float _timeUntilExtraAsteroid = 30;
+
         float _playedTime = 0;
         float _screenWidth = 0;
         float _screenHeight = 0;
@@ -75,7 +84,8 @@ namespace AsteroidsTest.Game
         IEnumerator SpawnAsteroids()
         {
             // Time between Spawns
-            float spawnSpeedModifier = 1 - Mathf.InverseLerp(0, 300, _playedTime);
+            float spawnSpeedModifier =
+                _timeBaseModifier - Mathf.InverseLerp(0, _timeUntilMaxSpeed, _playedTime);
 
             float timeToSpawn = Random.Range(
                 _minTimeToSpawn * spawnSpeedModifier,
@@ -85,7 +95,7 @@ namespace AsteroidsTest.Game
             yield return new WaitForSeconds(timeToSpawn);
 
             // Calculate Asteroid Amount
-            int ExtraAsteroids = (int)Mathf.Round(_playedTime / 30);
+            int ExtraAsteroids = (int)Mathf.Round(_playedTime / _timeUntilExtraAsteroid);
             int asteroidsToSpawn = Random.Range(0 + ExtraAsteroids, 2 + ExtraAsteroids);
 
             // Spawn Asteroids

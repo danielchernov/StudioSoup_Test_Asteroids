@@ -137,6 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9074940642319939775}
+  - component: {fileID: 5332639872206910571}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -161,6 +162,35 @@ Transform:
   - {fileID: 1553869833355745640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5332639872206910571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665148988740350021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff744b49a04e014409d54a6aedf2dc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bgmAudio: {fileID: 9051106958444003634}
+  _sfxAudio: {fileID: 1701406988667691471}
+  _gameOverBGM:
+  - {fileID: 8300000, guid: 22eb3a000227064479e7ab085fb47007, type: 3}
+  - {fileID: 8300000, guid: bfb9261ebe49ebc4da134c4d47d7d5ba, type: 3}
+  _fireSFX:
+  - {fileID: 8300000, guid: d8085843aaca27e45b41f4921c196c91, type: 3}
+  - {fileID: 8300000, guid: 3d382d0209d0ef94284883ee86701d01, type: 3}
+  - {fileID: 8300000, guid: 8150fc2a9f861e042925687b38b61099, type: 3}
+  _playerDeathSFX:
+  - {fileID: 8300000, guid: 3d9cca07995b292478cc78ecb0a1aba3, type: 3}
+  - {fileID: 8300000, guid: 6c36bcfe6997612408efab5feacfca8d, type: 3}
+  - {fileID: 8300000, guid: 35a932270d4e0ef419d4a6e085fdcdb8, type: 3}
+  _enemyDeathSFX:
+  - {fileID: 8300000, guid: f0eb7e6175302804d95990f8fd887143, type: 3}
+  - {fileID: 8300000, guid: c78b4a6f393af1749b7532a26931aaaa, type: 3}
+  - {fileID: 8300000, guid: d50caeaaef63ce04bb8b3543549d6abe, type: 3}
 --- !u!1 &6499183005226509616
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +235,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -8579337519279246674, guid: 90f41dfacec2e2548962ee26be318be5, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0

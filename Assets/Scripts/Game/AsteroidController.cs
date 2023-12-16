@@ -18,6 +18,9 @@ namespace AsteroidsTest.Game
         float _asteroidSpeed = 5;
 
         [SerializeField]
+        int _damage = 1;
+
+        [SerializeField]
         int _maxHealth = 1;
 
         int _currentHealth = 0;
@@ -52,16 +55,36 @@ namespace AsteroidsTest.Game
             StartCoroutine(DeactivateAfterTime(30));
         }
 
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.tag == "Player")
+            {
+                DamagePlayer(_damage);
+                DestroyObject();
+            }
+        }
+
+        void DamagePlayer(int damage)
+        {
+            PlayerController.Instance.TakeDamage(damage);
+        }
+
         public void TakeDamage(int Damage)
         {
-            // Health-Damage;
+            _currentHealth -= Mathf.Clamp(Damage, 0, _currentHealth);
+
+            if (_currentHealth <= 0)
+            {
+                DestroyObject();
+            }
         }
 
         public void DestroyObject()
         {
             OnEnemyDeath?.Invoke(_asteroidScore);
+            AudioManager.Instance.PlaySFX(AudioManager.AudioType.EnemyDeath);
 
-            // SetActive false?
+            gameObject.SetActive(false);
         }
 
         public IEnumerator DeactivateAfterTime(float timeToDeactivate)

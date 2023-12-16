@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using AsteroidsTest.Game;
@@ -26,10 +27,9 @@ namespace AsteroidsTest.Core
         [SerializeField]
         AudioSource _bgmAudio;
 
-        [SerializeField]
-        AudioClip _gameOverBGM;
+        int _currentScore = 0;
 
-        private void Awake()
+        void Awake()
         {
             _instance = this;
         }
@@ -37,28 +37,18 @@ namespace AsteroidsTest.Core
         // Add Listeners
         void OnEnable()
         {
-            PlayerController.OnPlayerDeath += GameOver;
+            AsteroidController.OnEnemyDeath += AddScore;
+            PlayerController.OnPlayerDeath += CallForGameOver;
+
             _escapeInput.action.started += PressedEscapeInput;
         }
 
         void OnDisable()
         {
-            PlayerController.OnPlayerDeath -= GameOver;
+            AsteroidController.OnEnemyDeath -= AddScore;
+            PlayerController.OnPlayerDeath -= CallForGameOver;
+
             _escapeInput.action.started -= PressedEscapeInput;
-        }
-
-        void GameOver()
-        {
-            Debug.Log("Game Over");
-            Time.timeScale = 0;
-            UIManager.Instance.GameOverUI();
-            _bgmAudio.clip = _gameOverBGM;
-            _bgmAudio.Play();
-        }
-
-        void PressedEscapeInput(InputAction.CallbackContext obj)
-        {
-            OpenPauseMenu();
         }
 
         public void OpenPauseMenu()
@@ -74,6 +64,34 @@ namespace AsteroidsTest.Core
             {
                 Time.timeScale = 1;
             }
+        }
+
+        public int GetCurrentScore()
+        {
+            return _currentScore;
+        }
+
+        void PressedEscapeInput(InputAction.CallbackContext obj)
+        {
+            OpenPauseMenu();
+        }
+
+        void AddScore(int score)
+        {
+            _currentScore += score;
+            UIManager.Instance.ChangeScoreText(_currentScore);
+        }
+
+        void CallForGameOver()
+        {
+            StartCoroutine(GameOver());
+        }
+
+        IEnumerator GameOver()
+        {
+            yield return new WaitForSeconds(1.5f);
+            Time.timeScale = 0;
+            UIManager.Instance.GameOverUI();
         }
     }
 }

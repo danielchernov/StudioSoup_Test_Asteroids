@@ -13,12 +13,16 @@ PrefabInstance:
       value: AsteroidLarge
       objectReference: {fileID: 0}
     - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
+      propertyPath: _damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
       propertyPath: _maxHealth
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
       propertyPath: _asteroidSize
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7071725841124929014, guid: 1567c582f00806d418a749bcf3c3a94c, type: 3}
       propertyPath: _asteroidScore

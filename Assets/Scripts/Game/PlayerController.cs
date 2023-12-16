@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using AsteroidsTest.Core;
@@ -28,7 +29,7 @@ namespace AsteroidsTest.Game
         float _rotationSpeed = 300;
 
         [SerializeField]
-        int _maxHealth = 3;
+        int _maxHealth = 5;
 
         int _currentHealth = 0;
 
@@ -47,12 +48,6 @@ namespace AsteroidsTest.Game
 
         [SerializeField]
         Transform _firePoint;
-
-        [SerializeField]
-        AudioSource _playerAudio;
-
-        [SerializeField]
-        AudioClip[] _fireSFX;
 
         public static event Action<int> OnTookDamage;
         public static event Action OnPlayerDeath;
@@ -108,7 +103,7 @@ namespace AsteroidsTest.Game
 
         public void TakeDamage(int Damage)
         {
-            _currentHealth -= Damage;
+            _currentHealth -= Mathf.Clamp(Damage, 0, _currentHealth);
 
             OnTookDamage?.Invoke(_currentHealth);
 
@@ -121,7 +116,9 @@ namespace AsteroidsTest.Game
         public void DestroyObject()
         {
             OnPlayerDeath?.Invoke();
-            // Invoke dead event for GameManager
+            AudioManager.Instance.PlaySFX(AudioManager.AudioType.PlayerDeath);
+
+            gameObject.SetActive(false);
         }
 
         public int GetMaxHealth()
@@ -141,10 +138,7 @@ namespace AsteroidsTest.Game
                 );
 
                 //Play Fire SFX
-                _playerAudio.PlayOneShot(
-                    _fireSFX[UnityEngine.Random.Range(0, _fireSFX.Length)],
-                    0.5f
-                );
+                AudioManager.Instance.PlaySFX(AudioManager.AudioType.Fire);
             }
         }
 
